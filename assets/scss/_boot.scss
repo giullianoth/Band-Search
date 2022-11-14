@@ -1,0 +1,19 @@
+/* Reset Config */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: $font-monserrat;
+}
+
+body {    
+    font-family: $font-monserrat;
+}
+
+img {
+    display: block;
+    width: 100%;
+}

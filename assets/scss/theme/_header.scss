@@ -1,0 +1,82 @@
+/* HEADER */
+.main_header {
+    @include content-full;
+
+    padding: 20px 0;
+
+    &_content {
+        @include content;
+
+        @include flex;
+        flex-wrap: nowrap;
+
+        &_logo {
+            @include flex-2;
+
+            @include flex;
+            justify-content: flex-start;
+
+            a {
+                @include flex-4;
+
+                h1 {
+                    @include no-display;
+                }
+
+                img {
+                    @include transition;
+                    width: 160px;
+                }
+            }
+        }
+
+        &_switch_theme {
+            @include flex-2;
+
+            @include flex;
+            justify-content: flex-end;
+
+            @include relative;
+
+            .switch {
+                @include switch(60px, 30px);
+                @include transition;
+            }
+
+            &_card {
+
+                @include absolute;
+                top: 150%;
+                left: unset;
+                right: 0;
+                z-index: 10;
+
+                width: 60px;
+                height: 60px;
+
+                @include transition;
+
+                .img {
+                    @include absolute-full;
+                    @include bg-image;
+                    @include radius(50%);
+                    @include border(4px, solid, $color-shadow);
+
+                    &::before {
+                        content: "";
+
+                        @include absolute-full;
+                        z-index: -1;
+
+                        transform: rotate(45deg);
+
+                        background-color: $color-shadow;
+
+                        @include radius(0 50% 50% 50%);
+                        @include border(2px, solid, $color-shadow);
+                    }
+                }
+            }
+        }
+    }
+}

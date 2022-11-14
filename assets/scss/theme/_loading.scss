@@ -1,0 +1,38 @@
+/* Loading Bars */
+.load-screen {
+    @include absolute-full;
+
+    @include flex;
+    @include transition;
+
+    opacity: 0;
+
+    .loading {
+        width: $loading-width;
+        height: 20px;
+    
+        @include flex;
+        justify-content: space-between;
+        gap: $loading-gap;
+    
+        &-bar {
+            @include flex-4($loading-gap);
+            height: 100%;
+    
+            background-color: $color-tertiary;
+
+            @for $i from 1 through $loading-bars-length {
+                &.bar-#{$i} {
+                    animation-delay: calc($loading-bars-delay * $i);
+                }
+            }
+
+            @include animation(loading-bar, (
+                (transform: scaleY(1)),
+                (transform: scaleY(2.5), opacity: 0.7),
+                (transform: scaleY(1)),
+                (transform: scaleY(1))
+            ), $loading-time, infinite, ease-in);
+        }
+    }
+}

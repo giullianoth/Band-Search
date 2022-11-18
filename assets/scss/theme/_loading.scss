@@ -1,11 +1,10 @@
 /* Loading Bars */
 .load-screen {
-    @include absolute-full;
+    @include absolute-center;
+    width: 100%;
 
     @include flex;
     @include transition;
-
-    opacity: 0;
 
     .loading {
         width: $loading-width;

@@ -1,42 +1,29 @@
 const animationTime = 500;
+const animationTimeGap = 100;
 
-export default function effects() {
-    return {
-        fadeIn: function (element, elementDisplay = "block") {
+const transition = `all ${animationTime / 1000}s ease`;
 
-            let elementOpacity = 0;
-        
-            element.style.display = elementDisplay;
-            element.style.opacity = elementOpacity;
-        
-            let fade = setInterval(function() {
-        
-                element.style.opacity = elementOpacity / 100;
-        
-                if (elementOpacity >= 100) {
-                    clearInterval(fade);
-                }
-        
-                elementOpacity++;
-            }, animationTime / 100);
-        },
+const fadeIn = (element, elementDisplay = "block") => {
+    element.style.transition = transition;
+    element.style.display = elementDisplay;
+    element.style.opacity = "0";
 
-        fadeOut: function (element) {
-
-            let elementOpacity = 100;
-            element.style.opacity = elementOpacity / 100;
-        
-            let fade = setInterval(function() {
-        
-                element.style.opacity = elementOpacity / 100;
-        
-                if (elementOpacity === 0) {
-                    clearInterval(fade);
-                    element.style.display = "none";
-                }
-        
-                elementOpacity--;
-            }, animationTime / 100);
-        }
-    }
+    setTimeout(() => {
+        element.style.opacity = "";
+        setTimeout(() => {
+            element.style.transition = "";
+        }, animationTime + animationTimeGap);
+    }, animationTimeGap);
 }
+
+const fadeOut = (element) => {
+    element.style.transition = transition;
+    element.style.opacity = "0";
+
+    setTimeout(() => {
+        element.style.transition = "";
+        element.style.display = "";
+    }, animationTime);
+}
+
+export { fadeIn, fadeOut };

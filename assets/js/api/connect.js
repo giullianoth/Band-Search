@@ -15,16 +15,20 @@ const getApiData = async (url) => {
 }
 
 const youtubeApi = async (search) => {
+    let data = null
     let youtubeApiKey = "AIzaSyDxWH8nbxeYe5S9gs6nHDlydxQqFMjpo_g";
     let url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${youtubeApiKey}`;
 
     await getApiData(url)
-    .then((data) => {
+    .then((dataYT) => {
         console.log(data);
+        data = dataYT
     })
     .finally(() => {
         console.log("Rodou");
     });
+
+    return data;
 }
 
 const ticketmasterApi = async (search) => {

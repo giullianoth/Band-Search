@@ -13,7 +13,7 @@ export default async function jForm() {
     formSearch.onsubmit = async function (event) {
         event.preventDefault();
 
-        // effects().fadeOut(bandListDom);
+        fadeOut(bandListDom);
 
         mainDom.classList.add("list");
 

@@ -57,9 +57,10 @@ const bandList = (data) => {
     bandListDom.append(headerElement(data[0].snippet.channelTitle));
     bandListDom.append(listElement());
 
+    let listArea = document.querySelector(".j_list");
+
     data.forEach((item) => {
         if (item.id.kind.replace("youtube#", "") === "video") {
-            let listArea = document.querySelector(".j_list");
             listArea.append(listItemElement(item));
             console.log(item);
         }
@@ -74,6 +75,8 @@ const bandList = (data) => {
 
     backButton.onclick = function () {
         fadeOut(bandListDom);
+        bandListDom.innerHTML = "";
+        listArea.innerHTML = "";
         mainDom.classList.remove("list");
         setTimeout(() => {
             bandListDom.style.display = "none";

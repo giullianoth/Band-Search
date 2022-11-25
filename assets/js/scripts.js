@@ -8,5 +8,3 @@ jForm();
 darkTheme();
 
 window.onresize = setViewport;
-
-// youtubeApi("metallica");

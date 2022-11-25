@@ -1,7 +1,7 @@
 import loadingScreen from "./loading-screen.js";
 import { fadeIn, fadeOut } from "./effects.js";
 import bandList from "./_band-list.js";
-import { ticketmasterApi, youtubeApi } from "../api/connect.js";
+import { youtubeApi } from "../api/connect.js";
 
 const mainDom = document.querySelector(".j_main .main-content");
 const formSearch = document.querySelector(".j_search");
@@ -17,20 +17,25 @@ export default async function jForm() {
 
         mainDom.classList.add("list");
 
+        let searchValue = formSearch.querySelector("#band").value;
         let loadingScreenDom = loadingScreen();
+        let list = null;
 
         mainDom.append(loadingScreenDom);
         fadeIn(loadingScreenDom, "flex");
 
-        await youtubeApi().then((data) => {
-            console.log(data);
+        await youtubeApi(searchValue).then((data) => {
+            list = data;
+        })
+        .catch((error) => {
+            console.error(`Falha na pesquisa: ${error}`);
+        })
+        .finally(() => {
+            document.querySelector(".load-screen").remove();
         })
 
-        // console.log(formSearch.querySelector("#band").value);
-        // await ticketmasterApi(formSearch.querySelector("#band").value)
-        // .then((data) => {
-        //     let { name, externalLinks } = data;
-        //     console.log(name, externalLinks);
-        // });
+        if (typeof(list) === "object") {
+            bandList(list);
+        }
     }
 }

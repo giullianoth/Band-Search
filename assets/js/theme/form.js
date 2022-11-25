@@ -19,12 +19,13 @@ export default async function jForm() {
 
         let searchValue = formSearch.querySelector("#band").value;
         let loadingScreenDom = loadingScreen();
+        let list = null;
 
         mainDom.append(loadingScreenDom);
         fadeIn(loadingScreenDom, "flex");
 
         await youtubeApi(searchValue).then((data) => {
-            console.log(data);
+            list = data;
         })
         .catch((error) => {
             console.error(`Falha na pesquisa: ${error}`);
@@ -32,5 +33,9 @@ export default async function jForm() {
         .finally(() => {
             document.querySelector(".load-screen").remove();
         })
+
+        if (typeof(list) === "object") {
+            bandList(list);
+        }
     }
 }

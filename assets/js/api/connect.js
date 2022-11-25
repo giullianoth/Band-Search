@@ -22,6 +22,9 @@ const youtubeApi = async (search) => {
     .then((dataYT) => {
         data = dataYT.items;
     })
+    .catch((error) => {
+        data = `Erro ao pesquisar: ${error}`;
+    })
 
     return data;
 }

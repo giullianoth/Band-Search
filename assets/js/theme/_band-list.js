@@ -6,7 +6,7 @@ const bandListContentDom = document.querySelector(".band-list-content");
 // const backButton = bandListDom.querySelector(".back");
 const formSearchField = document.querySelector(".j_search");
 
-export default function bandList() {
+const bandList = () => {
 
     let formHeight = document.querySelector(".j_main_search").offsetHeight;
 
@@ -23,3 +23,5 @@ export default function bandList() {
     //     mainDom.classList.remove("list");
     // }
 }
+
+export default bandList;

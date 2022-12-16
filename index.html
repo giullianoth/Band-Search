@@ -13,43 +13,44 @@
 </head>
 
 <body>
-    <header class="main_header">
-        <div class="main_header_content">
-            <div class="main_header_content_logo">
+    <header class="bs_header j_header">
+        <div class="bs_header_content">
+            <div class="bs_header_content_logo">
                 <a href="#">
                     <h1>Band Search</h1>
                     <img src="assets/images/logo_dark.png" alt="Band Search" class="j_theme_logo">
                 </a>
             </div>
-            <div class="main_header_content_switch_theme">
-                <div class="switch j_switch">
-                    <i></i>
-                </div>
 
-                <div class="main_header_content_switch_theme_card j_card_container"></div>
+            <div class="bs_header_content_switch_theme">
+                <div class="switch j_switch"></div>
+                <div class="card">
+                    <div class="card_img j_card_container"></div>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="j_main">
-        <div class="main-content">
-            <aside class="main_search j_main_search">
-                <form action="" method="post" class="j_search">
-                    <label for="band">
-                        <input type="text" name="band" id="band" required>
-                        <span>Clique e digite o nome da banda aqui</span>
-                        <i class="bottom-bar"></i>
-                    </label>
+    <main class="bs_main j_main">
+        <div class="bs_main_content j_main_content">
+            <aside class="bs_main_content_form j_form">
+                <form action="" class="j_search">
+                    <div class="label_area"><input type="text" name="search" id="search" required value="">
+                        <label
+                            for="search">Clique e digite o nome da banda aqui</label>                                
+                            <i class="bottom_bar"></i>
+                    </div>
+                    
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Pesquisar</button>
                 </form>
             </aside>
 
-            <section class="band-list" style="display:none"></section>
+            <section class="bs_main_content_results j_results" style="display: none"></section>
         </div>
     </main>
 
-    <footer class="main_footer">
-        <p>Coded by <em>Giulliano Guimarães</em></p>
+    <footer class="bs_footer j_footer">
+        <p>Coded by <em><a href="https://github.com/giullianoth" target="_blank">Giulliano Guimarães</a></em></p>
     </footer>
 
     <script src="assets/js/scripts.js" type="module"></script>

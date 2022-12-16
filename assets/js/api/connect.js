@@ -1,58 +1,58 @@
-const getApiData = async (url) => {
-    let data = null;
+const Search = async (url) => {
+    const response = await fetch(url)
+        .then((resp) => resp.json())
+        .then((data) => data)
+        .catch((err) => err)
 
-    await fetch(url).then((response) => response.json())
-    .then((body) => {
-        data = body;
-    })
-    .catch((error) => {
-        data = error;
-    })
-
-    return data;
+    return response;
 }
 
-const youtubeApi = async (search) => {
+const TicketMasterSearch = async (search) => {
+    const ApiKey = "q2GNlCrgGo6c8uej3Ib4MsbAC2KIr5nG";
+    const url = `https://app.ticketmaster.com/discovery/v2/attractions.json?keyword=${search}&apikey=${ApiKey}`;
 
-    let data = null
-    let youtubeApiKey = "AIzaSyDxWH8nbxeYe5S9gs6nHDlydxQqFMjpo_g";
-    let url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${youtubeApiKey}`;
+    try {
 
-    await getApiData(url)
-    .then((dataYT) => {
-        data = dataYT.items;
-    })
-    .catch((error) => {
-        data = `Erro ao pesquisar: ${error}`;
-    })
+        let rawData = await Search(url).then((data) => data._embedded.attractions);
 
-    return data;
+        let isMusic = rawData.some((itemData) =>
+            itemData.classifications.some((itemClassification) =>
+                itemClassification.segment.name === "Music"
+            )
+        );
+
+        if (!isMusic) {
+            return `Sua pesquisa por "${search}" é inválida. Apenas bandas ou artistas (cantores).`;
+        }
+
+        let socialInfo = rawData.find((itemData) =>
+            itemData.classifications.find((itemClassification) =>
+                itemClassification.segment.name === "Music"
+            )
+        ).externalLinks;
+
+        let mainTitle = rawData.find((itemData) =>
+            itemData.classifications.find((itemClassification) =>
+                itemClassification.segment.name === "Music"
+            )
+        ).name;
+
+        return { socialInfo, mainTitle };
+
+    } catch (error) {
+        return `Sua pesquisa por "${search}" não retornou resultados. Tente de novo.`
+    }
 }
 
-// const ticketmasterApi = async (search) => {
-//     let data = null;
-//     let ticketMasterApiKey = "q2GNlCrgGo6c8uej3Ib4MsbAC2KIr5nG";
-//     let url = `https://app.ticketmaster.com/discovery/v2/attractions.json?keyword=${search}&classificationName=music&apikey=${ticketMasterApiKey}`;
+const YouTubeSearch = async (search) => {
+    const ApiKey = "AIzaSyDxWH8nbxeYe5S9gs6nHDlydxQqFMjpo_g";
+    const url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${ApiKey}`;
 
-//     await getApiData(url)
-//     .then((dataApi) => {
-//         data = dataApi;
-//     })
-//     .catch((error) => {
-//         data = error;
-//     })
-//     .finally(() => {
-//         console.log("Rodou");
-//         fadeOut(document.querySelector(".loading"));
-//         setTimeout(() => {
-//             document.querySelector(".loading").remove();
-//         }, 600);
-//     });
+    try {
+        return await Search(url).then((data) => data.items.filter((video) => video.id.kind.includes("video")));
+    } catch (error) {
+        return `Sua pesquisa por "${search}" não retornou resultados. Tente de novo.`
+    }
+}
 
-//     return data._embedded?.attractions[0] ?? null;
-// }
-
-export { youtubeApi, /* ticketmasterApi */ };
-
-// https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=metallica&key=AIzaSyDxWH8nbxeYe5S9gs6nHDlydxQqFMjpo_g
-// https://app.ticketmaster.com/discovery/v2/attractions.json?keyword=metallica&classificationName=music&apikey=q2GNlCrgGo6c8uej3Ib4MsbAC2KIr5nG
+export { TicketMasterSearch, YouTubeSearch };

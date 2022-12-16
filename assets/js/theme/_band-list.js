@@ -1,4 +1,5 @@
 import { fadeIn, fadeOut } from "./effects.js";
+import videoModal from "./modal.js";
 import setViewport from "./viewport.js";
 
 const bandListDom = document.querySelector(".j_results");
@@ -72,17 +73,18 @@ const listItemElement = (data) => {
     let { thumbnails, title, description } = data.snippet;
 
     let itemElement = document.createElement("article");
-    itemElement.className = "bs_main_content_results_list_item";
+    itemElement.className = "bs_main_content_results_list_item j_results_list_item";
+    itemElement.setAttribute( "data-url", data.id.videoId);
 
     itemElement.innerHTML = `
         <div class="bs_main_content_results_list_item_thumbnail">
-        <div class="img" style="background-image: url('${thumbnails.medium.url}');"></div>
+        <div class="img open_modal" style="background-image: url('${thumbnails.medium.url}');"></div>
         </div>
         <div class="bs_main_content_results_list_item_info">
         <header class="bs_main_content_results_list_item_info_title">
-        <h2>${title}</h2>
+        <h2 class="open_modal">${title}</h2>
         </header>
-        <p class="bs_main_content_results_list_item_info_desc">${description}</p>
+        <p class="bs_main_content_results_list_item_info_desc open_modal">${description}</p>
         </div>
     `;
 
@@ -126,12 +128,6 @@ const listElement = (list) => {
 
 const bandList = ({ listItems, mainTitle, socialInfo }) => {
 
-    console.log(
-        { listItems, mainTitle, socialInfo },
-        headerElement(mainTitle, socialInfo),
-        listElement(listItems)
-    );
-
     bandListDom.innerHTML = headerElement(mainTitle, socialInfo).outerHTML + listElement(listItems).outerHTML;
     fadeIn(bandListDom, "flex");
 
@@ -148,6 +144,8 @@ const bandList = ({ listItems, mainTitle, socialInfo }) => {
             bandListDom.style.display = "none";
         }, 300);
     }
+
+    videoModal();
 }
 
 export default bandList;

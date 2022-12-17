@@ -24,7 +24,7 @@ const validate = async (search) => {
                 data.filter((video) => video.id.kind.includes("video"))
             );
 
-            bandData = {socialInfo, mainTitle, listItems};
+            bandData = { socialInfo, mainTitle, listItems };
 
         } else {
             bandData = dataInfo;
@@ -58,14 +58,19 @@ export default function jForm() {
 
         if (searchValue.length !== 0) {
             const dataValidated = await validate(searchValue).then((data) => data);
-            mainDom.querySelector(".j_loading").remove();
 
-            if (typeof(dataValidated) !== "object") {
+            if (typeof (dataValidated) !== "object") {
                 mainDom.appendChild(error(dataValidated));
                 setViewport();
             } else {
                 bandList(dataValidated);
             }
+            
+            mainDom.querySelector(".j_loading").remove();
+        } else {
+            mainDom.appendChild(error("Digite o nome da banda ou artista."));
+            setViewport();            
+            mainDom.querySelector(".j_loading").remove();
         }
     }
 }

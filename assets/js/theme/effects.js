@@ -22,7 +22,7 @@ const fadeOut = (element) => {
 
     setTimeout(() => {
         element.style.transition = "";
-        element.style.display = "";
+        element.style.display = "none";
     }, animationTime);
 }
 

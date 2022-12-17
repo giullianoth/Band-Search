@@ -1,5 +1,5 @@
 import loadingScreen from "./loading-screen.js";
-import { fadeIn, fadeOut } from "./effects.js";
+import { fadeOut } from "./effects.js";
 import bandList from "./_band-list.js";
 import error from "./error.js";
 import { TicketMasterSearch, YouTubeSearch } from "../api/connect.js";
@@ -8,7 +8,6 @@ import setViewport from "./viewport.js";
 const mainDom = document.querySelector(".j_main_content");
 const formDom = document.querySelector(".j_form");
 const formSearch = document.querySelector(".j_search");
-const mainSearchDom = document.querySelector(".j_main_search");
 const bandListDom = document.querySelector(".j_results");
 
 const validate = async (search) => {

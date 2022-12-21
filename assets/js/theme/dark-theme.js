@@ -1,43 +1,32 @@
 const bodyDom = document.querySelector("body");
 const switchDom = document.querySelector(".j_switch");
 const logoImg = document.querySelector(".j_theme_logo");
+const cardContainer = document.querySelector(".j_card_container");
 
 export default function darkTheme() {
 
-    switchDom.onmouseenter = function () {
+    const titleSwitch = {
+        dark: "Muito escuro? Mude para o tema claro.",
+        light: "Muito claro? Mude para o tema escuro."
+    }
 
-        let cardContainer = document.querySelector(".j_card_container");
-        let card = document.createElement("div");
+    const cardImg = {
+        dark: "cant-see",
+        light: "my-eyes"
+    }
 
-        let image = bodyDom.classList.contains("dark") ? "cant-see.gif" : "my-eyes.gif";
-        let cardTitle = bodyDom.classList.contains("dark")
-            ? "Muito escuro? Mude para o tema claro."
-            : "Muito claro? Mude para o tema escuro.";
+    const logo = {
+        dark: "logo_light",
+        light: "logo_dark"
+    }
 
-        card.setAttribute("class", "img");
-        card.style.backgroundImage = `url('assets/images/${image}')`;
+    cardContainer.style.backgroundImage = `url(assets/images/${bodyDom.classList.contains("dark_theme") ? cardImg.dark : cardImg.light}.gif)`;
+    switchDom.setAttribute("title", (bodyDom.classList.contains("dark_theme") ? titleSwitch.dark : titleSwitch.light));
 
-        this.setAttribute("title", cardTitle);
-
-        cardContainer.append(card);
-
-        this.onclick = (Event) => {
-
-            Event.preventDefault();
-
-            bodyDom.classList.toggle("dark");
-            switchDom.querySelector("i").classList.toggle("turned-on");
-            
-            image = bodyDom.classList.contains("dark") ? "cant-see.gif" : "my-eyes.gif";
-            card.style.backgroundImage = `url('assets/images/${image}')`;
-
-            let logo = bodyDom.classList.contains("dark") ? "logo_light.png" : "logo_dark.png";
-            logoImg.attributes.src.nodeValue = `assets/images/${logo}`;
-        };
-
-        this.onmouseleave = function () {
-            card.remove();
-            image = bodyDom.classList.contains("dark") ? "cant-see.gif" : "my-eyes.gif";
-        }
+    switchDom.onclick = function () {
+        bodyDom.classList.toggle("dark_theme");
+        logoImg.src = `assets/images/${bodyDom.classList.contains("dark_theme") ? logo.dark : logo.light}.png`;
+        cardContainer.style.backgroundImage = `url(assets/images/${bodyDom.classList.contains("dark_theme") ? cardImg.dark : cardImg.light}.gif)`;
+        switchDom.setAttribute("title", (bodyDom.classList.contains("dark_theme") ? titleSwitch.dark : titleSwitch.light));
     }
 }

@@ -1,41 +1,76 @@
 import loadingScreen from "./loading-screen.js";
-import { fadeIn, fadeOut } from "./effects.js";
+import { fadeOut } from "./effects.js";
 import bandList from "./_band-list.js";
-import { youtubeApi } from "../api/connect.js";
+import error from "./error.js";
+import { TicketMasterSearch, YouTubeSearch } from "../api/connect.js";
+import setViewport from "./viewport.js";
 
-const mainDom = document.querySelector(".j_main .main-content");
+const mainDom = document.querySelector(".j_main_content");
+const formDom = document.querySelector(".j_form");
 const formSearch = document.querySelector(".j_search");
-const mainSearchDom = document.querySelector(".j_main_search");
-const bandListDom = document.querySelector(".band-list");
+const bandListDom = document.querySelector(".j_results");
 
-export default async function jForm() {
+const validate = async (search) => {
+    let bandData = null;
+
+    try {
+        const dataInfo = await TicketMasterSearch(search).then((data) => data);
+
+        if (typeof (dataInfo) === "object") {
+
+            const { socialInfo, mainTitle } = dataInfo;
+
+            const listItems = await YouTubeSearch(search).then((data) =>
+                data.filter((video) => video.id.kind.includes("video"))
+            );
+
+            bandData = { socialInfo, mainTitle, listItems };
+
+        } else {
+            bandData = dataInfo;
+        }
+    } catch (err) {
+        bandData = "Erro inesperado na pesquisa.";
+    }
+
+    return bandData;
+}
+
+export default function jForm() {
 
     formSearch.onsubmit = async function (event) {
         event.preventDefault();
 
-        // effects().fadeOut(bandListDom);
+        let errorDom = document.querySelector(".j_error") ?? null;
 
-        mainDom.classList.add("list");
+        fadeOut(bandListDom);
 
-        let searchValue = formSearch.querySelector("#band").value;
+        if (errorDom) {
+            errorDom.remove();
+        }
+
         let loadingScreenDom = loadingScreen();
-        let list = null;
-
         mainDom.append(loadingScreenDom);
-        fadeIn(loadingScreenDom, "flex");
 
-        await youtubeApi(searchValue).then((data) => {
-            list = data;
-        })
-        .catch((error) => {
-            console.error(`Falha na pesquisa: ${error}`);
-        })
-        .finally(() => {
-            document.querySelector(".load-screen").remove();
-        })
+        formDom.classList.add("list");
 
-        if (typeof(list) === "object") {
-            bandList(list);
+        let searchValue = formSearch.querySelector("#search").value;
+
+        if (searchValue.length !== 0) {
+            const dataValidated = await validate(searchValue).then((data) => data);
+
+            if (typeof (dataValidated) !== "object") {
+                mainDom.appendChild(error(dataValidated));
+                setViewport();
+            } else {
+                bandList(dataValidated);
+            }
+            
+            mainDom.querySelector(".j_loading").remove();
+        } else {
+            mainDom.appendChild(error("Digite o nome da banda ou artista."));
+            setViewport();            
+            mainDom.querySelector(".j_loading").remove();
         }
     }
 }

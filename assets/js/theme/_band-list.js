@@ -1,43 +1,47 @@
 import { fadeIn, fadeOut } from "./effects.js";
+import videoModal from "./modal.js";
+import setViewport from "./viewport.js";
 
-const mainDom = document.querySelector(".j_main .main-content");
-const bandListDom = document.querySelector(".band-list");
-const formSearchField = document.querySelector(".j_search");
+const bandListDom = document.querySelector(".j_results");
+const formAreaDom = document.querySelector(".j_form");
+const formDom = formAreaDom.querySelector(".j_search");
 
-const listItemElement = (data) => {
+const socialInfos = {
+    facebook: {
+        color: "#1877F2",
+        title: "Facebook",
+        // icon: (<FontAwesomeIcon icon={brands("facebook-f")} />)
+    },
 
-    let listElement = document.createElement("article");
-    listElement.className = "band-list-content-videos-item";
+    instagram: {
+        color: "#D62976",
+        title: "Instagram",
+        // icon: (<FontAwesomeIcon icon={brands("instagram")} />)
+    },
 
-    listElement.innerHTML = `
-    <div class="band-list-content-videos-item-thumb"><a href="https://www.youtube.com/watch?v=${data.id.videoId}" target="_blank"><img src="${data.snippet.thumbnails.medium.url}" alt="${data.snippet.title}" style="width: ${data.snippet.thumbnails.medium.width}px; height: ${data.snippet.thumbnails.medium.height}px;"></a></div>
-    <div class="band-list-content-videos-item-info">
-    <header class="band-list-content-videos-item-info-title"><h2><a href="https://www.youtube.com/watch?v=${data.id.videoId}" target="_blank">${data.snippet.title}</a></h2></header>
-    <p class="band-list-content-videos-item-info-desc"><a href="https://www.youtube.com/watch?v=${data.id.videoId}" target="_blank">${data.snippet.description}</a></p>
-    <p class="band-list-content-videos-item-info-postby"><a href="https://www.youtube.com/watch?v=${data.id.videoId}" target="_blank"><i class="fa-solid fa-user"></i> ${data.snippet.channelTitle}</a></p>
-    </div>
-    `;
+    youtube: {
+        color: "#FE0002",
+        title: "YouTube",
+        // icon: (<FontAwesomeIcon icon={brands("youtube")} />)
+    },
 
-    return listElement;
-}
+    twitter: {
+        color: "#1DA1F2",
+        title: "Twitter",
+        // icon: (<FontAwesomeIcon icon={brands("twitter")} />)
+    },
 
-const headerElement = (title) => {
-    let header = document.createElement("header");
-    header.className = "band-list-title j_list_title";
-    header.innerHTML = `<h1>${title}</h1>`;
-    return header;
-}
+    spotify: {
+        color: "#1ED760",
+        title: "Spotify",
+        // icon: (<FontAwesomeIcon icon={brands("spotify")} />)
+    },
 
-const listElement = () => {
-    let list = document.createElement("div");
-    list.className = "band-list-content";
-
-    list.innerHTML = `
-    <p class="band-list-content-desc j_list_desc"></p>
-    <div class="band-list-content-videos j_list"></div>
-    `;
-
-    return list;
+    itunes: {
+        color: "#EA4CC0",
+        title: "iTunes",
+        // icon: (<FontAwesomeIcon icon={brands("itunes-note")} />)
+    }
 }
 
 const backButtonElement = () => {
@@ -47,38 +51,101 @@ const backButtonElement = () => {
     return button;
 }
 
-const bandList = (data) => {
+const socialItemElement = (network, link) => {
 
-    let formHeight = document.querySelector(".j_main_search").offsetHeight;
+    let isValidSocialNetwork = network && link ? Object.keys(socialInfos).some((social) => social === network) : false;
 
-    fadeIn(bandListDom);
-    bandListDom.style.display = "block";
-    bandListDom.append(backButtonElement());
-    bandListDom.append(headerElement(data[0].snippet.channelTitle));
-    bandListDom.append(listElement());
+    if (!isValidSocialNetwork) {
+        return "";
+    }
 
-    data.forEach((item) => {
-        if (item.id.kind.replace("youtube#", "") === "video") {
-            let listArea = document.querySelector(".j_list");
-            listArea.append(listItemElement(item));
-            console.log(item);
-        }
-    })
+    let socialItem = document.createElement("li");
+
+    socialItem.innerHTML = `
+        <a href="${link}" target="_blank"style="background-color: ${socialInfos[network].color};">${socialInfos[network].title}</a>
+        `;
+
+    return socialItem.outerHTML;
+}
+
+const listItemElement = (data) => {
+
+    let { thumbnails, title, description } = data.snippet;
+
+    let itemElement = document.createElement("article");
+    itemElement.className = "bs_main_content_results_list_item j_results_list_item";
+    itemElement.setAttribute( "data-url", data.id.videoId);
+
+    itemElement.innerHTML = `
+        <div class="bs_main_content_results_list_item_thumbnail">
+        <div class="img open_modal" style="background-image: url('${thumbnails.medium.url}');"></div>
+        </div>
+        <div class="bs_main_content_results_list_item_info">
+        <header class="bs_main_content_results_list_item_info_title">
+        <h2 class="open_modal">${title}</h2>
+        </header>
+        <p class="bs_main_content_results_list_item_info_desc open_modal">${description}</p>
+        </div>
+    `;
+
+    return itemElement.outerHTML;
+}
+
+const headerElement = (title, socialInfo) => {
+    let header = document.createElement("div");
+    let titleElement = document.createElement("header");
+    let socialListElement = document.createElement("ul");
+
+    let socialNetworks = socialInfo ? Object.keys(socialInfo) : [];
+    let socialLinks = socialInfo ? Object.values(socialInfo).map((item) => item[0].url) : [];
+
+    header.className = "bs_main_content_results_header j_results_header";
+    titleElement.className = "bs_main_content_results_header_title";
+    socialListElement.className = "bs_main_content_results_header_desc";
+
+    titleElement.innerHTML = `<h1>${title}</h1>`;
+
+    socialNetworks.forEach((network, index) => {
+        socialListElement.innerHTML += socialItemElement(network, socialLinks[index]);
+    });
+
+    header.innerHTML = titleElement.outerHTML + socialListElement.outerHTML + backButtonElement().outerHTML;
+
+    return header;
+}
+
+const listElement = (list) => {
+
+    let listAreaElement = document.createElement("div");
+    listAreaElement.className = "bs_main_content_results_list j_results_list";
+
+    list.forEach((item) => {
+        listAreaElement.innerHTML += listItemElement(item);
+    });
+
+    return listAreaElement;
+}
+
+const bandList = ({ listItems, mainTitle, socialInfo }) => {
+
+    bandListDom.innerHTML = headerElement(mainTitle, socialInfo).outerHTML + listElement(listItems).outerHTML;
+    fadeIn(bandListDom, "flex");
+
+    setViewport();
 
     const backButton = bandListDom.querySelector(".back");
-    const bandListContentDom = document.querySelector(".band-list-content");
-    let titleListHeight = bandListDom.querySelector(".band-list-title").offsetHeight;
-
-    bandListDom.style.height = `calc(100% - ${formHeight}px)`;
-    bandListContentDom.style.height = `calc(100% - ${titleListHeight}px)`;
 
     backButton.onclick = function () {
         fadeOut(bandListDom);
-        mainDom.classList.remove("list");
         setTimeout(() => {
+            bandListDom.innerHTML = "";
+            formDom.querySelector("#search").value = "";
+            formAreaDom.classList.remove("list");
             bandListDom.style.display = "none";
-        }, 600);
+        }, 300);
     }
+
+    videoModal();
 }
 
 export default bandList;

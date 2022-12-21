@@ -1,16 +1,9 @@
-// SCSS Variables and Mixins
-@import "variables";
-@import "theme/variables";
-@import "mixins";
+@import "boot/variables";
+@import "boot/mixins";
+@import "boot/fonts";
 
-/* FONTS CONFIG */
-/* ------------ */
-@import "theme/fonts";
+@import "boot/boot";
 
-/* BOOT CONFIG */
-/* ----------- */
-@import "boot";
-
-/* THEME CONFIG */
-/* ------------ */
-@import "theme/theme";
+@import "theme/header/header";
+@import "theme/main/main";
+@import "theme/footer/footer";

@@ -9,23 +9,24 @@
         @include flex;
         @include transition;
 
+        section {
+            @include flex1;
+            @include container(800px);
+            @include relative;
+        }
+
         .close_modal {
-            display: block;
             background: none;
             border: none;
             cursor: pointer;
             color: $color-white;
             font-size: $font-size-big;
-            justify-self: flex-end;
 
-            margin: {
-                bottom: 20px;
-                left: 20px;
-            }
+            @include absolute(-40px, unset);
+            right: 20px;
         }
 
         &_content {
-            @include container(800px);
             @include flex1;
 
             &_embedded {

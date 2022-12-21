@@ -137,10 +137,10 @@ const bandList = ({ listItems, mainTitle, socialInfo }) => {
 
     backButton.onclick = function () {
         fadeOut(bandListDom);
+        formAreaDom.classList.remove("list");
         setTimeout(() => {
             bandListDom.innerHTML = "";
             formDom.querySelector("#search").value = "";
-            formAreaDom.classList.remove("list");
             bandListDom.style.display = "none";
         }, 300);
     }

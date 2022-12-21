@@ -30,7 +30,7 @@ const videoModal = () => {
 
         videoItemClickable.forEach((itemClick) => {
             itemClick.addEventListener("click", () => {
-                document.body.prepend(modalElement({videoTitle, videoUrl}));
+                document.body.prepend(modalElement({ videoTitle, videoUrl }));
                 document.querySelector(".close_modal").addEventListener("click", closeModal);
             })
         })

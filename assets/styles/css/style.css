@@ -18,10 +18,20 @@ body {
   background-size: cover;
   background-position: center center;
   transition: all 0.5s ease 0s;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  flex-direction: column;
 }
 body.dark-theme {
   background-color: #0D0D0D;
   color: #FFF;
+}
+
+main {
+  flex-grow: 1;
+  height: 100%;
 }
 
 a {
@@ -37,6 +47,59 @@ img {
   object-fit: cover;
   -o-object-position: center;
   object-position: center;
+}
+
+label {
+  cursor: pointer;
+  display: block;
+}
+
+input {
+  padding: 10px 0;
+  display: block;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  transition: all 0.5s ease 0s;
+  width: 100%;
+}
+
+.bs-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #FFF;
+  border: none;
+  background-color: #593622;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+.bs-button::before {
+  position: absolute;
+  top: 50%;
+  left: -25%;
+  transition: all 0.5s ease 0s;
+  content: "";
+  transform: translateY(-50%) rotate(20deg);
+  width: 10%;
+  height: 250%;
+  opacity: 0.7;
+  filter: blur(10px);
+  background-color: #FFF;
+}
+.bs-button:hover::before {
+  left: 125%;
 }
 
 .bs-header {
@@ -163,6 +226,13 @@ img {
   background-color: #F2F2F2;
 }
 
+.bs-main__container {
+  max-width: 1300px;
+  padding-inline: 20px;
+  margin-inline: auto;
+  height: 100%;
+}
+
 .bs-footer {
   width: 100%;
   padding-block: 10px;
@@ -176,4 +246,73 @@ img {
 }
 .bs-footer a:hover {
   text-decoration: underline;
+}
+
+.bs-search {
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.bs-search__form {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 20px;
+}
+@media screen and (min-width: 480px) {
+  .bs-search__form {
+    max-width: 480px;
+    padding-inline: 0;
+    margin-inline: auto;
+  }
+}
+.bs-search__form-label {
+  position: relative;
+}
+.bs-search__form-label::before {
+  position: absolute;
+  top: unset;
+  left: 0;
+  transition: all 0.5s ease 0s;
+  content: "";
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background-color: #0D0D0D;
+}
+.bs-search__form-label:has(input:valid, input:focus)::before {
+  width: 100%;
+}
+.bs-search__form-label:has(input:valid, input:focus) span {
+  top: -100%;
+}
+@media screen and (min-width: 480px) {
+  .bs-search__form-label:has(input:valid, input:focus) span {
+    font-size: 0.8rem;
+  }
+}
+.bs-search__form-label span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  transition: all 0.5s ease 0s;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+@media screen and (min-width: 480px) {
+  .bs-search__form-label span {
+    font-size: 1rem;
+  }
 }

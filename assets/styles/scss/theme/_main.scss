@@ -1,0 +1,8 @@
+@include theme() {
+    &main {
+        &__container {
+            @include container;
+            height: 100%;
+        }
+    }
+}

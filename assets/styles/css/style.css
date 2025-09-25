@@ -232,6 +232,46 @@ input {
   margin-inline: auto;
   height: 100%;
 }
+.bs-loading {
+  width: 100%;
+  height: 100%;
+  max-height: calc(100% - 40px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 10px;
+}
+.bs-loading__bar {
+  width: 20px;
+  height: 20px;
+  background-color: #593622;
+  animation: loading_bar 1s infinite linear;
+}
+@keyframes loading_bar {
+  0% {
+    transform: scaleY(1);
+  }
+  33.3333333333% {
+    transform: scaleY(2.5);
+    opacity: 0.7;
+  }
+  66.6666666667% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+.bs-loading__bar:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.bs-loading__bar:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.bs-loading__bar:nth-child(3) {
+  animation-delay: 0.3s;
+}
 
 .bs-footer {
   width: 100%;
@@ -255,6 +295,49 @@ input {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  transition: all 0.5s ease 0s;
+}
+.bs-search.searching {
+  max-height: 40px;
+}
+@media screen and (min-width: 768px) {
+  .bs-search.searching {
+    justify-content: flex-start;
+  }
+}
+.bs-search.searching .bs-search__form {
+  flex-direction: row;
+  justify-content: flex-start;
+  max-width: none !important;
+  margin: 0;
+}
+@media screen and (min-width: 480px) {
+  .bs-search.searching .bs-search__form {
+    width: auto;
+  }
+}
+.bs-search.searching .bs-search__form-label:has(input:valid, input:focus) span {
+  top: 0;
+  visibility: hidden;
+  opacity: 0;
+  font-size: 0.7em;
+}
+@media screen and (min-width: 992px) {
+  .bs-search.searching .bs-search__form-label:has(input:valid, input:focus) span {
+    font-size: 0.8rem;
+  }
+}
+.bs-search.searching .bs-search__form-label span {
+  font-size: 0.7em;
+  font-weight: 400;
+}
+@media screen and (min-width: 992px) {
+  .bs-search.searching .bs-search__form-label span {
+    font-size: 0.8rem;
+  }
+}
+.bs-search.searching .bs-search__form .bs-button {
+  font-size: 0.8rem;
 }
 .bs-search__form {
   display: flex;
@@ -263,7 +346,7 @@ input {
   flex-wrap: nowrap;
   flex-direction: column;
   width: 100%;
-  row-gap: 20px;
+  gap: 20px;
 }
 @media screen and (min-width: 480px) {
   .bs-search__form {
@@ -314,5 +397,10 @@ input {
 @media screen and (min-width: 480px) {
   .bs-search__form-label span {
     font-size: 1rem;
+  }
+}
+@media screen and (min-width: 768px) {
+  .bs-search__form .bs-button {
+    font-size: 1.4rem;
   }
 }

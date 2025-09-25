@@ -5,4 +5,31 @@
             height: 100%;
         }
     }
+
+    &loading {
+        $loading-bars-length: 3;
+        @include containerFluid(true);
+        max-height: calc(100% - 40px);
+        @include flex;
+        column-gap: 10px;
+
+        &__bar {
+            width: 20px;
+            height: 20px;
+            background-color: $color-tertiary;
+
+            @include animation(loading_bar, (
+                (transform: scaleY(1)),
+                (transform: scaleY(2.5), opacity: 0.7),
+                (transform: scaleY(1)),
+                (transform: scaleY(1))
+            ));
+
+            @for $i from 1 through $loading-bars-length {
+                &:nth-child(#{$i}) {
+                    animation-delay: calc(0.1s * $i);
+                }
+            }
+        }
+    }
 }

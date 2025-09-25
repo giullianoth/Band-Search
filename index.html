@@ -1,59 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Band Search</title>
 
-    <script src="https://kit.fontawesome.com/fe0ca3f893.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/fe0ca3f893.js" crossorigin="anonymous" defer></script>
 
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 </head>
-
 <body>
-    <header class="bs_header j_header">
-        <div class="bs_header_content">
-            <div class="bs_header_content_logo">
-                <a href="#">
+    <header class="bs-header">
+        <div class="bs-header__container">
+            <div class="bs-header__logo">
+                <a href="/">
                     <h1>Band Search</h1>
-                    <img src="assets/images/logo_dark.png" alt="Band Search" class="j_theme_logo">
+                    <img src="/assets/images/logo_dark.png" alt="Band Search" class="j_page_logo">
                 </a>
             </div>
 
-            <div class="bs_header_content_switch_theme">
-                <div class="switch j_switch"></div>
-                <div class="card">
-                    <div class="card_img j_card_container"></div>
+            <div class="bs-header__theme">
+                <div class="bs-header__theme-switch j_theme_switch"></div>
+
+                <div class="bs-header__theme-card">
+                    <img src="/assets/images/my-eyes.gif" alt="Mudar Tema" class="j_theme_card">
                 </div>
             </div>
         </div>
+        
     </header>
 
-    <main class="bs_main j_main">
-        <div class="bs_main_content j_main_content">
-            <aside class="bs_main_content_form j_form">
-                <form action="" class="j_search">
-                    <div class="label_area"><input type="text" name="search" id="search" required value="">
-                        <label
-                            for="search">Clique e digite o nome da banda aqui</label>                                
-                            <i class="bottom_bar"></i>
-                    </div>
-                    
-                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Pesquisar</button>
+    <main>
+        <div class="bs-main__container">
+            <aside class="bs-search">
+                <form class="bs-search__form"> 
+                    <label>
+                        <input type="text" name="search" required>
+                        <span>Clique aqui e digite o nome da banda</span>
+                    </label>
+
+                    <button type="submit" class="bs-button">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Pesquisar
+                    </button>
                 </form>
             </aside>
-
-            <section class="bs_main_content_results j_results" style="display: none"></section>
         </div>
     </main>
 
-    <footer class="bs_footer j_footer">
-        <p>Coded by <em><a href="https://github.com/giullianoth" target="_blank">Giulliano Guimarães</a></em></p>
+    <footer class="bs-footer">
+        <p>
+            Coded by
+            <em>
+                <a href="https://github.com/giullianoth" target="_blank" rel="noopener noreferrer">Giulliano Guimarães</a>
+            </em>
+        </p>
     </footer>
-
-    <script src="assets/js/scripts.js" type="module"></script>
 </body>
-
 </html>

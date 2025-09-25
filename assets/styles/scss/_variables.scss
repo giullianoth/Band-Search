@@ -1,0 +1,40 @@
+// BREAKPOINTS (Based on Bootstrap: https://getbootstrap.com/docs/5.3/layout/breakpoints/#available-breakpoints)
+$breakpoint-small: 576px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 992px;
+$breakpoint-extra-large: 1024px;
+$breakpoint-xx-large: 1200px;
+
+// COLORS
+$color-black: #000;
+$color-white: #FFF;
+
+$color-primary: #F20505;
+$color-secondary: #1C228C;
+$color-tertiary: #593622;
+
+$color-highlight: #F2F2F2;
+$color-shadow: #0D0D0D;
+$color-modal: #000000B3;
+
+// TYPOGRAPHY
+$font-size-default: 1rem;
+$font-size-small: 0.8rem;
+$font-size-big: 1.4rem;
+$font-montserrat: 'Montserrat', sans-serif;
+
+// CONTAINER WIDTH
+$container-width: 1300px;
+$container-clearance: 20px;
+
+// TRANSITIONS AND ANIMATIONS
+$transition-duration-default: 0.5s;
+
+// BROWSER PREFIXES
+$browser-prefixes-default: (
+    "moz",
+    "webkit"
+);
+
+// IMAGES
+$image-path: "../../../assets/images";

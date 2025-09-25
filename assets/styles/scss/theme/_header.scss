@@ -1,0 +1,98 @@
+@include theme() {
+    &header {
+        @include containerFluid;
+        padding-block: 20px;
+
+        &__container {
+            @include container;
+            @include flex(space-between, center, nowrap);
+        }
+
+        &__logo {
+            h1 {
+                display: none;
+            }
+
+            img {
+                width: 120px;
+                @include transition;
+
+                @include setResponsiveDesign($breakpoint-small) {
+                    width: 160px;
+                }
+            }
+        }
+
+        &__theme {
+            @include relative;
+
+            &-switch {
+                width: 40px;
+                height: 20px;
+                background-color: $color-shadow;
+                cursor: pointer;
+                @include borderRadius(20px);
+                @include transition;
+
+                @include setResponsiveDesign($breakpoint-small) {
+                    width: 60px;
+                    height: 30px;
+                    @include borderRadius(30px);
+                }
+
+                &::before {
+                    content: "";
+                    width: 20px;
+                    height: 20px;
+                    background-color: $color-highlight;
+                    border: 2px solid $color-shadow;
+                    @include absolute;
+                    @include rounded;
+                    @include transition;
+
+                    @include setResponsiveDesign($breakpoint-small) {
+                        width: 30px;
+                        height: 30px;
+                        border-width: 4px;
+                    }
+                }
+
+                &:hover ~ .bs-header__theme-card {
+                    display: block;
+                }
+            }
+
+            &-card {
+                @include rounded;
+                @include transition;
+                @include absolute(180%, 50%);
+                transform: translateX(-50%);
+                width: 60px;
+                height: 60px;
+                border: 2px solid $color-shadow;
+                background-color: $color-shadow;
+                z-index: 1;
+                display: none;
+
+                &::before {
+                    @include absolute(-8px, 50%);
+                    @include transition;
+                    transform: translateX(-50%) rotate(45deg);
+                    content: "";
+                    width: 20px;
+                    height: 20px;
+                    background-color: $color-shadow;
+                }
+
+                img {
+                    @include containerFluid(true);
+                    @include relative;
+                    @include rounded;
+                    z-index: 2;
+                }
+            }
+        }
+    }
+}
+
+@import "../dark-theme/header";

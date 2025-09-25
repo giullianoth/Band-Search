@@ -1,0 +1,33 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    @include setBrowserPrefix(box-sizing, border-box);
+}
+
+body {
+    background-color: $color-highlight;
+    color: $color-shadow;
+    font-family: $font-montserrat;
+    height: 100vh;
+    @include relative;
+    @include backgroundImage("background.png");
+    @include transition;
+    
+    &.dark-theme {
+        background-color: $color-shadow;
+        color: $color-white;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    @include setBrowserPrefix(object-fit, cover, "o");
+    @include setBrowserPrefix(object-position, center, "o");
+}

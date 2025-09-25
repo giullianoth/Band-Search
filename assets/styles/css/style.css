@@ -162,3 +162,18 @@ img {
 .dark-theme .bs-header__theme-card::before {
   background-color: #F2F2F2;
 }
+
+.bs-footer {
+  width: 100%;
+  padding-block: 10px;
+}
+.bs-footer p {
+  text-align: center;
+  font-size: 0.8rem;
+}
+.bs-footer a {
+  font-weight: 700;
+}
+.bs-footer a:hover {
+  text-decoration: underline;
+}

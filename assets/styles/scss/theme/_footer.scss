@@ -1,0 +1,19 @@
+@include theme() {
+    &footer {
+        @include containerFluid;
+        padding-block: 10px;
+
+        p {
+            text-align: center;
+            font-size: $font-size-small;
+        }
+
+        a {
+            font-weight: 700;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

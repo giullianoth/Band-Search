@@ -32,7 +32,7 @@ const ChangeTheme = () => {
 
     switchButton.addEventListener("click", () => {
         body.classList.toggle("dark-theme")
-        pageLogo.src = `/assets/images/${body.classList.contains("dark-theme") ? pageLogo.dark : pageLogo.light}`
+        pageLogoElement.src = `/assets/images/${body.classList.contains("dark-theme") ? pageLogo.dark : pageLogo.light}`
         change()
     })
 }

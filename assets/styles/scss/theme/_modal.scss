@@ -1,0 +1,32 @@
+@include theme() {
+    &modal {
+        @include fixedFull(0, 0, true);
+        @include flex;
+        padding: 20px;
+        background-color: $color-modal;
+
+        &__container {
+            @include containerFluid;
+            @include container(800px, 0);
+            height: fit-content;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+
+        &__embedded {
+            aspect-ratio: 16 / 9;
+            margin-bottom: 20px;
+
+            iframe {
+                @include containerFluid(true);
+            }
+        }
+
+        &__title {
+            h2 {
+                font-size: $font-size-big;
+                color: $color-white;
+            }
+        }
+    }
+}

@@ -557,6 +557,20 @@ input {
     flex-basis: calc(100% - 320px - 20px);
   }
 }
+.bs-results__video-title {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.bs-results__video-title:hover {
+  text-decoration: none;
+}
+.bs-results__video-description {
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.bs-results__video-description:hover {
+  text-decoration: none;
+}
 .bs-results::-webkit-scrollbar, .bs-results__list::-webkit-scrollbar {
   width: 3px;
   background-color: transparent;

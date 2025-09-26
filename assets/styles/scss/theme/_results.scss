@@ -109,6 +109,24 @@
                     @include flexBasis(calc(100% - 320px), 20px);
                 }
             }
+
+            &-title {
+                margin-bottom: 10px;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+
+            &-description {
+                font-size: $font-size-small;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
         }
     }
 

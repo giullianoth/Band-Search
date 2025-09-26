@@ -4,7 +4,7 @@ import { fadeIn } from "./effects.js"
 
 const ErrorElement = message => {
     const element = document.createElement("div")
-    element.className = "bs-error"
+    element.className = "bs-error j_error"
 
     element.innerHTML = `
         <p>${message}</p>

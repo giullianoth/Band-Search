@@ -4,9 +4,21 @@ import { fadeIn, fadeOut } from "./effects.js"
 import showError from "./error.js"
 import Loading from "./loading.js"
 
+const results = () => document.querySelector(".j_results")
+const errorElement = () => document.querySelector(".j_error")
+
 const Search = () => {
     SearchForm.addEventListener("submit", async event => {
         event.preventDefault()
+
+        if (results()) {
+            fadeOut(results(), true)
+        }
+
+        if (errorElement()) {
+            fadeOut(errorElement(), true)
+        }
+
         const loading = Loading()
         const { value } = SearchInput
 
@@ -21,7 +33,7 @@ const Search = () => {
         }
 
         await BandList(value)
-        fadeOut(loading)
+        fadeOut(loading, true)
     })
 }
 

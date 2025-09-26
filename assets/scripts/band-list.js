@@ -3,6 +3,10 @@ import ClearSearch from "./clear.js";
 import { Container } from "./dom.js";
 import { fadeIn } from "./effects.js";
 import showError from "./error.js";
+import Modal from "./modal.js";
+
+const clickabeVideos = () => document.querySelectorAll(".j_video")
+const videosToOpen = []
 
 const socialInfo = {
     facebook: {
@@ -37,6 +41,8 @@ const socialInfo = {
 }
 
 const listElement = data => {
+    videosToOpen.length = 0
+
     const results = document.createElement("section")
     const heading = document.createElement("div")
     const socialLinks = document.createElement("ul")
@@ -82,7 +88,7 @@ const listElement = data => {
         const videoElement = document.createElement("article")
         const { thumbnails, title, description } = video.snippet
 
-        videoElement.className = "bs-results__video"
+        videoElement.className = "bs-results__video j_video"
         videoElement.setAttribute("data-videoid", video.id.videoId)
         videoElement.setAttribute("title", "Clique para abrir o vídeo")
 
@@ -101,6 +107,7 @@ const listElement = data => {
         `
 
         list.append(videoElement)
+        videosToOpen.push(video)
     })
 
     heading.append(socialLinks)
@@ -122,6 +129,16 @@ const BandList = async search => {
     Container.append(results)
     fadeIn(results, "flex")
     ClearSearch(results)
+
+    if (clickabeVideos()) {
+        Array.from(clickabeVideos()).forEach(video => {
+            video.addEventListener("click", () => {
+                const videoId = video.dataset.videoid
+                const videoToOpen = videosToOpen.find(video => video.id.videoId === videoId)
+                Modal(videoToOpen)
+            })
+        })
+    }
 }
 
 export default BandList

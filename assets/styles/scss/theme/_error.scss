@@ -1,0 +1,14 @@
+@include theme() {
+    &error {        
+        height: calc(100% - 40px - 30px);
+        @include flex;
+        @include column;
+        gap: 20px;
+
+        p {
+            font-size: $font-size-big;
+            font-weight: 700;
+            text-align: center;
+        }
+    }
+}

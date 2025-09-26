@@ -430,6 +430,10 @@ input {
   }
 }
 
+.dark-theme .bs-search__form-label::before {
+  background-color: #F2F2F2;
+}
+
 .bs-results {
   width: 100%;
   display: flex;

@@ -1,0 +1,11 @@
+@include darkTheme() {
+    &search {
+        &__form {
+            &-label {
+                &::before {
+                    background-color: $color-highlight;
+                }
+            }
+        }
+    }
+}

@@ -512,6 +512,51 @@ input {
     overflow-y: auto;
   }
 }
+.bs-results__video {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  gap: 20px;
+}
+@media screen and (min-width: 576px) {
+  .bs-results__video {
+    flex-direction: row;
+  }
+}
+.bs-results__video:not(:last-child) {
+  margin-bottom: 40px;
+}
+.bs-results__video-thumbnail {
+  cursor: pointer;
+}
+@media screen and (min-width: 576px) {
+  .bs-results__video-thumbnail {
+    flex-basis: 240px;
+    height: 140px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .bs-results__video-thumbnail {
+    flex-basis: 320px;
+    height: 180px;
+  }
+}
+.bs-results__video-thumbnail img {
+  width: 100%;
+  height: 100%;
+}
+@media screen and (min-width: 576px) {
+  .bs-results__video-info {
+    flex-basis: calc(100% - 240px - 20px);
+  }
+}
+@media screen and (min-width: 992px) {
+  .bs-results__video-info {
+    flex-basis: calc(100% - 320px - 20px);
+  }
+}
 .bs-results::-webkit-scrollbar, .bs-results__list::-webkit-scrollbar {
   width: 3px;
   background-color: transparent;

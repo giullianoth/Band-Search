@@ -10,7 +10,7 @@ body {
     font-family: $font-montserrat;
     height: 100vh;
     @include relative;
-    @include backgroundImage("background.png");
+    @include backgroundImage("background.png", no-repeat, contain);
     @include transition;
     @include flex(flex-start, stretch, nowrap);
     @include column;
@@ -24,11 +24,16 @@ body {
 main {
     flex-grow: 1;
     height: 100%;
+    overflow: hidden;
 }
 
 a {
     text-decoration: none;
     color: inherit;
+}
+
+li {
+    list-style: none;
 }
 
 img {

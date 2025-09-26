@@ -19,10 +19,18 @@
                 margin: 0;
 
                 @include setResponsiveDesign(480px) {
-                    width: auto;
+                    width: 480px;
                 }
 
                 &-label {
+                    @include setResponsiveDesign(480px) {
+                        @include flex2(20px);
+                    }
+
+                    @include setResponsiveDesign($breakpoint-large) {
+                        @include flexBasis(60%);
+                    }
+
                     &:has(input:valid, input:focus) {
                         span {
                             top: 0;
@@ -48,6 +56,14 @@
 
                 .bs-button {
                     font-size: $font-size-small;
+
+                    @include setResponsiveDesign(480px) {
+                        @include flex2(20px);
+                    }
+
+                    @include setResponsiveDesign($breakpoint-large) {
+                        @include flexBasis(40%);
+                    }
                 }
             }
         }
